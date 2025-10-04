@@ -178,16 +178,16 @@
 </header>
 
 <main
-    class="mx-auto flex w-full max-w-6xl flex-col items-center px-4 pb-12"
+    class="mx-auto flex w-full max-w-6xl flex-col items-center px-4"
 >
 <section
-    class="mb-6 w-full rounded-lg p-5 text-center"
+    class="md:mb-6 w-full rounded-lg p-5 text-center"
 >
-    <h2 class="text-2xl font-semibold">Total Mana</h2>
-    <div class="mt-1 text-8xl font-black tabular-nums" x-text="total()"></div>
+    <h2 class="inline-block md:block text-xl md:text-2xl font-semibold">Total Mana<span x-text="`: ${total()}`" class="md:hidden"></span></h2>
+    <h2 class="hidden md:block mt-1 text-xl md:text-8xl font-black tabular-nums" x-text="total()"></h2>
     <button
         @click="reset()"
-        class="mt-4 text-xl rounded-md bg-background px-6 py-3 font-medium transition-colors hover:bg-muted bg-card focus:outline-none"
+        class="inline-block ml-4 md:ml-0 mt-4 rounded-md bg-background px-6 py-3 font-medium transition-colors hover:bg-muted bg-card focus:outline-none"
     >
         Reset
     </button>
@@ -198,19 +198,18 @@
 >
     <template x-for="m in colors" :key="m.key">
         <div
-            class="flex w-96 sm:w-60 flex-col items-center justify-center p-3"
+            class="flex w-40 md:w-60 flex-col items-center justify-center p-3"
         >
-            <button @click="inc(m.key)" class="inline-flex h-12 w-20 items-center justify-center rounded-md bg-card text-foreground shadow-sm transition-colors hover:bg-muted focus:outline-none" :aria-label="`Increment ${m.name}`" :title="`+1 ${m.name}`">
+            <button @click="inc(m.key)" class="inline-flex h-12 w-16 md:w-20 items-center justify-center rounded-md bg-card text-foreground shadow-sm transition-colors hover:bg-muted focus:outline-none" :aria-label="`Increment ${m.name}`" :title="`+1 ${m.name}`">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="18 15 12 9 6 15"></polyline>
                 </svg>
             </button>
 
-            <div class="relative my-3 w-full">
+            <div class="relative">
                 <div x-html="m.svg"></div>
-
                 <div
-                    class="absolute -right-[-10] -top-[-10] inline-flex w-16 h-16 items-center justify-center rounded-full bg-muted px-2 py-0.5 font-semibold leading-none shadow-sm text-4xl"
+                    class="absolute -right-[-10] -top-[-10] inline-flex w-12 h-12 md:w-16 md:h-16 items-center justify-center rounded-full bg-muted px-2 py-0.5 font-semibold leading-none shadow-sm text-3xl md:text-4xl"
                     x-text="counts[m.key]"
                 >
                     0
@@ -219,7 +218,7 @@
 
             <button
                 @click="dec(m.key)"
-                class="inline-flex h-12 w-20 items-center justify-center rounded-md bg-card text-foreground shadow-sm transition-colors hover:bg-muted focus:outline-none disabled:opacity-50"
+                class="inline-flex h-12 w-16 md:w-20 items-center justify-center rounded-md bg-card text-foreground shadow-sm transition-colors hover:bg-muted focus:outline-none disabled:opacity-50"
                 :disabled="counts[m.key] === 0"
                 :aria-label="`Decrement ${m.name}`"
                 :title="`-1 ${m.name}`"
