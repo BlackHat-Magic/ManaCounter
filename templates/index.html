@@ -13,7 +13,7 @@
 
 <body class="min-h-screen bg-background text-foreground" x-data="ManaCounter" x-init="init()">
 <header
-    class="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-5"
+    class="mx-auto flex w-full items-center justify-between px-4 py-5"
 >
 <br/>
 
@@ -58,7 +58,8 @@
     </a>
 
     <!-- Theme control with selector -->
-    <div x-data="ThemeUI" class="relative" @keydown.escape="close()">
+    <div x-data="ThemeUI" class="relative" @keydown.escape="close()" 
+    x-cloak>
         <button
             @click="toggle()"
             @mouseover="open()"
@@ -178,7 +179,7 @@
 </header>
 
 <main
-    class="mx-auto flex w-full max-w-6xl flex-col items-center px-4"
+    class="mx-auto flex w-full flex-col items-center px-4"
 >
 <section
     class="md:mb-6 w-full rounded-lg p-5 text-center"
@@ -198,7 +199,7 @@
 >
     <template x-for="m in colors" :key="m.key">
         <div
-            class="flex w-40 md:w-60 flex-col items-center justify-center p-3"
+            class="flex w-40 md:w-48 flex-col items-center justify-center p-3"
         >
             <button @click="inc(m.key)" class="inline-flex h-12 w-16 md:w-20 items-center justify-center rounded-md bg-card text-foreground shadow-sm transition-colors hover:bg-muted focus:outline-none" :aria-label="`Increment ${m.name}`" :title="`+1 ${m.name}`">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -209,7 +210,7 @@
             <div class="relative">
                 <div x-html="m.svg"></div>
                 <div
-                    class="absolute -right-[-10] -top-[-10] inline-flex w-12 h-12 md:w-16 md:h-16 items-center justify-center rounded-full bg-muted px-2 py-0.5 font-semibold leading-none shadow-sm text-3xl md:text-4xl"
+                    class="absolute -right-[-10] -top-[-10] inline-flex w-12 h-12 items-center justify-center rounded-full bg-muted px-2 py-0.5 font-semibold leading-none shadow-sm text-3xl"
                     x-text="counts[m.key]"
                 >
                     0
