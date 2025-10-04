@@ -12,6 +12,41 @@
 </head>
 
 <body class="min-h-screen bg-background text-foreground" x-data="ManaCounter" x-init="init()">
+<div
+    x-data="parallaxPage({ intensity: 32, mobileIntensity: 10 })"
+    x-init="init()"
+    @mousemove="onMouseMove($event)"
+    class="relative min-h-[100dvh] overflow-hidden"
+>
+<!-- BACKGROUND (z-0) -->
+<div class="pointer-events-none fixed inset-0 z-0">
+    <!-- Layer 1: soft blobs -->
+    <div
+        id="bg-layer-1"
+        class="absolute inset-[-5%] will-change-transform"
+        :style="layerStyle(1)"
+    >
+        <div class="h-full w-full bg-art-1"></div>
+    </div>
+
+    <!-- Layer 2: subtle grid/noise -->
+    <div
+        id="bg-layer-2"
+        class="absolute inset-[-10%] will-change-transform mix-blend-overlay"
+        :style="layerStyle(2)"
+    >
+        <div class="h-full w-full bg-art-2 opacity-70"></div>
+    </div>
+
+    <!-- Vignette -->
+    <div
+        class="absolute inset-0"
+        aria-hidden="true"
+        style="background: radial-gradient(80% 60% at 50% 40%, transparent 0%, transparent 55%, rgba(0,0,0,0.22) 70%, rgba(0,0,0,0.7) 100%);"
+    ></div>
+</div>
+
+<div class="relative z-10">
 <header
     class="mx-auto flex w-full items-center justify-between px-4 py-5"
 >
@@ -241,5 +276,7 @@
     </template>
 </section>
 </main>
+</div>
+</div>
 </body>
 </html>

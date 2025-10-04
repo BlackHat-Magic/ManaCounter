@@ -187,3 +187,191 @@ html[data-theme="strawberry-dark"] {
     --accent: #b794f4; /* warm lilac */
     --ring: #b794f4;
 }
+
+/* ========================= */
+/* Parallax background (rich, theme-aware colors) */
+/* ========================= */
+
+/* Base “rich” art tokens derived from theme.
+   These get overridden per-theme below for better matches. */
+   :root {
+    --bg-art-a: color-mix(in oklab, var(--accent) 40%, var(--bg));
+    --bg-art-b: color-mix(in oklab, var(--ring) 36%, var(--bg));
+    --bg-art-c: color-mix(in oklab, var(--foreground) 24%, var(--bg));
+    --bg-art-d: color-mix(in oklab, var(--muted-foreground) 22%, var(--bg));
+    --bg-art-noise: color-mix(in oklab, var(--foreground) 15%, transparent);
+  }
+  
+  /* Light/dark tweaks to generally push saturation a bit */
+  html[data-mode="light"] {
+    --bg-art-a: color-mix(in oklab, var(--accent) 36%, var(--bg));
+    --bg-art-b: color-mix(in oklab, var(--ring) 32%, var(--bg));
+    --bg-art-c: color-mix(in oklab, var(--foreground) 18%, var(--bg));
+    --bg-art-d: color-mix(in oklab, var(--muted-foreground) 20%, var(--bg));
+    --bg-art-noise: color-mix(in oklab, var(--foreground) 12%, transparent);
+  }
+  html[data-mode="dark"] {
+    --bg-art-a: color-mix(in oklab, var(--accent) 48%, var(--bg));
+    --bg-art-b: color-mix(in oklab, var(--ring) 42%, var(--bg));
+    --bg-art-c: color-mix(in oklab, var(--foreground) 28%, var(--bg));
+    --bg-art-d: color-mix(in oklab, var(--muted-foreground) 26%, var(--bg));
+    --bg-art-noise: color-mix(in oklab, var(--foreground) 18%, transparent);
+  }
+  
+  /* ------------------------ */
+  /* Theme-specific enrichments */
+  /* These pick extra hues from each palette to create multi-color blobs. */
+  /* ------------------------ */
+  
+  /* Catppuccin Latte */
+  html[data-theme="catppuccin-latte"] {
+    /* Latte extras: lavender, pink, peach (typical brand accents) */
+    --cp-lavender: #7287fd;
+    --cp-pink: #ea76cb;
+    --cp-peach: #fe640b;
+    --bg-art-a: color-mix(in oklab, var(--cp-lavender) 46%, var(--bg));
+    --bg-art-b: color-mix(in oklab, var(--cp-pink) 40%, var(--bg));
+    --bg-art-c: color-mix(in oklab, var(--cp-peach) 36%, var(--bg));
+    --bg-art-d: color-mix(in oklab, var(--accent) 30%, var(--bg));
+  }
+  
+  /* Catppuccin Mocha */
+  html[data-theme="catppuccin-mocha"] {
+    /* Mocha extras: mauve, pink, peach */
+    --cp-mauve: #cba6f7;
+    --cp-pink: #f5c2e7;
+    --cp-peach: #fab387;
+    --bg-art-a: color-mix(in oklab, var(--cp-mauve) 56%, var(--bg));
+    --bg-art-b: color-mix(in oklab, var(--cp-pink) 46%, var(--bg));
+    --bg-art-c: color-mix(in oklab, var(--cp-peach) 44%, var(--bg));
+    --bg-art-d: color-mix(in oklab, var(--accent) 40%, var(--bg));
+  }
+  
+  /* Nord Light */
+  html[data-theme="nord-light"] {
+    /* Aurora colors: nord aurora red, orange, green, purple */
+    --n-aurora-red: #bf616a;
+    --n-aurora-orange: #d08770;
+    --n-aurora-green: #a3be8c;
+    --n-aurora-purple: #b48ead;
+    --bg-art-a: color-mix(in oklab, var(--n-aurora-red) 42%, var(--bg));
+    --bg-art-b: color-mix(in oklab, var(--n-aurora-orange) 38%, var(--bg));
+    --bg-art-c: color-mix(in oklab, var(--n-aurora-green) 42%, var(--bg));
+    --bg-art-d: color-mix(in oklab, var(--n-aurora-purple) 40%, var(--bg));
+  }
+  
+  /* Nord Dark */
+  html[data-theme="nord-dark"] {
+    --n-aurora-red: #bf616a;
+    --n-aurora-orange: #d08770;
+    --n-aurora-green: #a3be8c;
+    --n-aurora-purple: #b48ead;
+    --bg-art-a: color-mix(in oklab, var(--n-aurora-purple) 54%, var(--bg));
+    --bg-art-b: color-mix(in oklab, var(--n-aurora-red) 50%, var(--bg));
+    --bg-art-c: color-mix(in oklab, var(--n-aurora-green) 50%, var(--bg));
+    --bg-art-d: color-mix(in oklab, var(--n-aurora-orange) 46%, var(--bg));
+  }
+  
+  /* Gruvbox Light */
+  html[data-theme="gruvbox-light"] {
+    /* Warm golds/oranges with a teal-ish counterpoint */
+    --gv-yellow: #d79921;
+    --gv-orange: #fe8019;
+    --gv-aqua: #689d6a;
+    --gv-red: #cc241d;
+    --bg-art-a: color-mix(in oklab, var(--gv-yellow) 44%, var(--bg));
+    --bg-art-b: color-mix(in oklab, var(--gv-orange) 40%, var(--bg));
+    --bg-art-c: color-mix(in oklab, var(--gv-aqua) 36%, var(--bg));
+    --bg-art-d: color-mix(in oklab, var(--gv-red) 30%, var(--bg));
+  }
+  
+  /* Gruvbox Dark */
+  html[data-theme="gruvbox-dark"] {
+    --gv-yellow: #fabd2f;
+    --gv-orange: #fe8019;
+    --gv-aqua: #8ec07c;
+    --gv-purple: #d3869b;
+    --bg-art-a: color-mix(in oklab, var(--gv-purple) 50%, var(--bg));
+    --bg-art-b: color-mix(in oklab, var(--gv-yellow) 46%, var(--bg));
+    --bg-art-c: color-mix(in oklab, var(--gv-aqua) 44%, var(--bg));
+    --bg-art-d: color-mix(in oklab, var(--gv-orange) 42%, var(--bg));
+  }
+  
+  /* Rose Pine (kept tasteful but richer) */
+  html[data-theme="rose-pine"] {
+    --rp-iris: #c4a7e7;
+    --rp-love: #eb6f92;
+    --rp-gold: #f6c177;
+    --bg-art-a: color-mix(in oklab, var(--rp-iris) 52%, var(--bg));
+    --bg-art-b: color-mix(in oklab, var(--rp-love) 48%, var(--bg));
+    --bg-art-c: color-mix(in oklab, var(--rp-gold) 46%, var(--bg));
+    --bg-art-d: color-mix(in oklab, var(--accent) 40%, var(--bg));
+  }
+  html[data-theme="rose-pine-dawn"] {
+    --rp-iris: #907aa9;
+    --rp-love: #b4637a;
+    --rp-gold: #ea9d34;
+    --bg-art-a: color-mix(in oklab, var(--rp-iris) 44%, var(--bg));
+    --bg-art-b: color-mix(in oklab, var(--rp-love) 42%, var(--bg));
+    --bg-art-c: color-mix(in oklab, var(--rp-gold) 40%, var(--bg));
+    --bg-art-d: color-mix(in oklab, var(--accent) 34%, var(--bg));
+  }
+  
+  /* Strawberry: leave largely as-is (per your request), just minor lift */
+  html[data-theme="strawberry-light"] {
+    --bg-art-a: color-mix(in oklab, var(--accent) 30%, var(--bg));
+    --bg-art-b: color-mix(in oklab, var(--ring) 26%, var(--bg));
+    --bg-art-c: color-mix(in oklab, var(--foreground) 14%, var(--bg));
+    --bg-art-d: color-mix(in oklab, var(--muted-foreground) 14%, var(--bg));
+  }
+  html[data-theme="strawberry-dark"] {
+    --bg-art-a: color-mix(in oklab, var(--accent) 36%, var(--bg));
+    --bg-art-b: color-mix(in oklab, var(--ring) 30%, var(--bg));
+    --bg-art-c: color-mix(in oklab, var(--foreground) 18%, var(--bg));
+    --bg-art-d: color-mix(in oklab, var(--muted-foreground) 16%, var(--bg));
+  }
+  
+  /* ------------------------ */
+  /* Layers */
+  /* ------------------------ */
+  
+  /* Layer 1: four overlapping “blobs” with stronger colors */
+  .bg-art-1 {
+    background:
+      radial-gradient(38% 32% at 12% 18%, var(--bg-art-a) 0%, transparent 65%),
+      radial-gradient(35% 34% at 85% 22%, var(--bg-art-b) 0%, transparent 66%),
+      radial-gradient(55% 45% at 22% 85%, var(--bg-art-c) 0%, transparent 72%),
+      radial-gradient(50% 40% at 78% 78%, var(--bg-art-d) 0%, transparent 70%),
+      var(--bg);
+    filter: saturate(120%) contrast(105%);
+  }
+  
+  /* Layer 2: subtle grid/noise overlay tuned by theme */
+  .bg-art-2 {
+    background:
+      radial-gradient(1200px 800px at 50% 50%, var(--bg-art-noise), transparent 60%),
+      repeating-linear-gradient(
+        0deg,
+        color-mix(in oklab, var(--foreground) 10%, transparent) 0px,
+        color-mix(in oklab, var(--foreground) 10%, transparent) 1px,
+        transparent 1px,
+        transparent 16px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        color-mix(in oklab, var(--foreground) 10%, transparent) 0px,
+        color-mix(in oklab, var(--foreground) 10%, transparent) 1px,
+        transparent 1px,
+        transparent 16px
+      );
+    filter: saturate(115%);
+  }
+  
+  /* Optional: glass card helper for foreground containers */
+  .glass-card {
+    background-color: color-mix(in oklab, var(--bg) 55%, transparent);
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    border: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
+    box-shadow: 0 10px 50px -15px rgba(0, 0, 0, 0.35);
+  }
