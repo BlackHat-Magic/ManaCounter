@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" x-data x-init="$store.theme.init()">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>MTG Mana Counter</title>
+
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='dist/main.css') }}"
+        />
+        <!-- Load app JS first -->
+        <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+        <!-- Then Alpine -->
+        <script
+            src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+            defer
+        ></script>
+    </head>
+
+    <body
+        class="min-h-screen bg-background text-foreground"
+        x-data="ManaCounter"
+        x-init="init()"
+    >
+        <header
+            class="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-5"
+        >
+            <h1 class="text-2xl font-extrabold tracking-tight">MTG Mana Counter</h1>
+
+            <!-- Theme control with selector -->
+            <div x-data="ThemeUI" class="relative" @keydown.escape="close()">
+                <button
+                    @click="toggle()"
+                    @mouseover="open()"
+                    @mouseleave="close()"
+                    class="inline-flex h-11 w-11 items-center justify-center rounded-md border border-border bg-card text-foreground shadow-sm transition-colors hover:bg-muted focus:outline-none"
+                    aria-label="Toggle light/dark theme"
+                    title="Toggle theme"
+                >
+                    <svg
+                        x-show="$store.theme.mode === 'dark'"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <g clip-path="url(#clip0_429_11017)">
+                            <path
+                                d="M20.9955 11.7115L22.2448 11.6721C22.2326 11.2847 22.0414 10.9249 21.7272 10.698C21.413 10.4711 21.0113 10.4029 20.6397 10.5132L20.9955 11.7115ZM12.2885 3.00454L13.4868 3.36028C13.5971 2.98873 13.5289 2.58703 13.302 2.2728C13.0751 1.95857 12.7153 1.76736 12.3279 1.75516L12.2885 3.00454ZM20.6397 10.5132C20.1216 10.667 19.5716 10.75 19 10.75V13.25C19.815 13.25 20.6046 13.1314 21.3512 12.9098L20.6397 10.5132ZM19 10.75C15.8244 10.75 13.25 8.17564 13.25 5H10.75C10.75 9.55635 14.4437 13.25 19 13.25V10.75ZM13.25 5C13.25 4.42841 13.333 3.87841 13.4868 3.36028L11.0902 2.64879C10.8686 3.39542 10.75 4.18496 10.75 5H13.25ZM12 4.25C12.0834 4.25 12.1665 4.25131 12.2492 4.25392L12.3279 1.75516C12.219 1.75173 12.1097 1.75 12 1.75V4.25ZM4.25 12C4.25 7.71979 7.71979 4.25 12 4.25V1.75C6.33908 1.75 1.75 6.33908 1.75 12H4.25ZM12 19.75C7.71979 19.75 4.25 16.2802 4.25 12H1.75C1.75 17.6609 6.33908 22.25 12 22.25V19.75ZM19.75 12C19.75 16.2802 16.2802 19.75 12 19.75V22.25C17.6609 22.25 22.25 17.6609 22.25 12H19.75ZM19.7461 11.7508C19.7487 11.8335 19.75 11.9166 19.75 12H22.25C22.25 11.8903 22.2483 11.781 22.2448 11.6721L19.7461 11.7508Z"
+                                fill="currentColor"
+                            ></path>
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_429_11017">
+                                <rect width="24" height="24" fill="currentColor"></rect>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                    <svg
+                        x-show="$store.theme.mode === 'light'"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6"
+                        viewBox="0 0 64 64"
+                        fill="currentColor"
+                        stroke-width="2"
+                    >
+                        <g>
+                            <circle cx="32.003" cy="32.005" r="16.001"></circle>
+                            <path
+                                d="M12.001,31.997c0-2.211-1.789-4-4-4H4c-2.211,0-4,1.789-4,4 s1.789,4,4,4h4C10.212,35.997,12.001,34.208,12.001,31.997z"
+                            ></path>
+                            <path
+                                d="M12.204,46.139l-2.832,2.833c-1.563,1.562-1.563,4.094,0,5.656 c1.562,1.562,4.094,1.562,5.657,0l2.833-2.832c1.562-1.562,1.562-4.095,0-5.657C16.298,44.576,13.767,44.576,12.204,46.139z"
+                            ></path>
+                            <path
+                                d="M32.003,51.999c-2.211,0-4,1.789-4,4V60c0,2.211,1.789,4,4,4 s4-1.789,4-4l-0.004-4.001C36.003,53.788,34.21,51.999,32.003,51.999z"
+                            ></path>
+                            <path
+                                d="M51.798,46.143c-1.559-1.566-4.091-1.566-5.653-0.004 s-1.562,4.095,0,5.657l2.829,2.828c1.562,1.57,4.094,1.562,5.656,0s1.566-4.09,0-5.656L51.798,46.143z"
+                            ></path>
+                            <path
+                                d="M60.006,27.997l-4.009,0.008 c-2.203-0.008-3.992,1.781-3.992,3.992c-0.008,2.211,1.789,4,3.992,4h4.001c2.219,0.008,4-1.789,4-4 C64.002,29.79,62.217,27.997,60.006,27.997z"
+                            ></path>
+                            <path
+                                d="M51.798,17.859l2.828-2.829c1.574-1.566,1.562-4.094,0-5.657 c-1.559-1.567-4.09-1.567-5.652-0.004l-2.829,2.836c-1.562,1.555-1.562,4.086,0,5.649C47.699,19.426,50.239,19.418,51.798,17.859z"
+                            ></path>
+                            <path
+                                d="M32.003,11.995c2.207,0.016,4-1.789,4-3.992v-4 c0-2.219-1.789-4-4-4c-2.211-0.008-4,1.781-4,3.993l0.008,4.008C28.003,10.206,29.792,11.995,32.003,11.995z"
+                            ></path>
+                        </g>
+                    </svg>
+                </button>
+
+                <!-- Hovercard selector -->
+                <div
+                    x-show="menuOpen"
+                    x-transition:enter="transition ease-out duration-100"
+                    x-transition:enter-start="opacity-0 scale-95"
+                    x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-100"
+                    x-transition:leave-start="opacity-100 scale-100"
+                    x-transition:leave-end="opacity-0 scale-95"
+                    @mouseover="open()"
+                    @mouseleave="close()"
+                    class="absolute right-0 mt-2 w-80 rounded-md border border-border bg-card p-2 text-foreground shadow-md"
+                >
+                    <div class="flex items-center gap-1 p-1 border-b border-border">
+                        <button
+                            @click="setTab('light')"
+                            :class="activeTab === 'light' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:bg-muted'"
+                            class="px-3 py-1.5 text-sm rounded-md transition-colors"
+                            role="tab"
+                            aria-selected="activeTab === 'light'"
+                        >
+                            Light
+                        </button>
+                        <button
+                            @click="setTab('dark')"
+                            :class="activeTab === 'dark' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:bg-muted'"
+                            class="px-3 py-1.5 text-sm rounded-md transition-colors"
+                            role="tab"
+                            aria-selected="activeTab === 'dark'"
+                        >
+                            Dark
+                        </button>
+                    </div>
+
+                    <div class="px-1 py-2">
+                        <div x-show="activeTab === 'light'" role="tabpanel">
+                            <div class="mb-1 text-xs font-semibold opacity-70">
+                                Choose a light theme
+                            </div>
+                            <template x-for="t in $store.theme.lightThemes" :key="t.key">
+                                <button
+                                    @click="$store.theme.setLight(t.key)"
+                                    class="w-full flex items-center justify-between text-left px-2 py-1.5 rounded hover:bg-muted"
+                                >
+                                    <span x-text="t.name"></span>
+                                    <span
+                                        x-show="$store.theme.lightKey === t.key"
+                                        class="inline-flex h-2.5 w-2.5 rounded-full"
+                                        :style="`background: var(--accent);`"
+                                    ></span>
+                                </button>
+                            </template>
+                        </div>
+
+                        <div x-show="activeTab === 'dark'" role="tabpanel">
+                            <div class="mb-1 text-xs font-semibold opacity-70">
+                                Choose a dark theme
+                            </div>
+                            <template x-for="t in $store.theme.darkThemes" :key="t.key">
+                                <button
+                                    @click="$store.theme.setDark(t.key)"
+                                    class="w-full flex items-center justify-between text-left px-2 py-1.5 rounded hover:bg-muted"
+                                >
+                                    <span x-text="t.name"></span>
+                                    <span
+                                        x-show="$store.theme.darkKey === t.key"
+                                        class="inline-flex h-2.5 w-2.5 rounded-full"
+                                        :style="`background: var(--accent);`"
+                                    ></span>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main
+            class="mx-auto flex w-full max-w-6xl flex-col items-center px-4 pb-12"
+        >
+            <section
+                class="mb-6 w-full rounded-lg border border-border bg-card p-5 text-center shadow-sm"
+            >
+                <h2 class="text-xl font-semibold">Total Mana</h2>
+                <div class="mt-1 text-4xl font-black tabular-nums" x-text="total()">
+                    0
+                </div>
+                <div class="mt-4 flex flex-wrap items-center justify-center gap-3">
+                    <button
+                        @click="reset()"
+                        class="rounded-md border border-border bg-background px-4 py-2 text-base font-medium transition-colors hover:bg-muted focus:outline-none"
+                    >
+                        Reset
+                    </button>
+                    <button
+                        @click="save()"
+                        class="rounded-md border border-border bg-background px-4 py-2 text-base font-medium transition-colors hover:bg-muted focus:outline-none"
+                        title="Saved automatically on change"
+                    >
+                        Save
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="w-full overflow-x-auto rounded-lg border border-border bg-card p-5 shadow-sm"
+            >
+                <div
+                    class="mx-auto flex w-full max-w-full items-stretch justify-center gap-4"
+                >
+                    <template x-for="m in colors" :key="m.key">
+                        <div
+                            class="flex w-28 min-w-28 flex-col items-center justify-center rounded-md border border-border bg-background p-3"
+                        >
+                            <!-- Bigger up button -->
+                            <button
+                                @click="inc(m.key)"
+                                class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-card text-foreground shadow-sm transition-colors hover:bg-muted focus:outline-none"
+                                :aria-label="`Increment ${m.name}`"
+                                :title="`+1 ${m.name}`"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                </svg>
+                            </button>
+
+                            <!-- Bigger symbol -->
+                            <div class="relative my-3 h-16 w-16">
+                                <svg
+                                    viewBox="0 0 100 100"
+                                    class="h-16 w-16 drop-shadow-sm"
+                                    aria-hidden="true"
+                                >
+                                    <circle cx="50" cy="50" r="46" :fill="m.ring" opacity="0.15" />
+                                    <circle
+                                        cx="50"
+                                        cy="50"
+                                        r="40"
+                                        :fill="m.fill"
+                                        :stroke="m.ring"
+                                        stroke-width="4"
+                                    />
+                                    <text
+                                        x="50"
+                                        y="60"
+                                        text-anchor="middle"
+                                        font-size="54"
+                                        font-weight="800"
+                                        :fill="m.text"
+                                        font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji"
+                                    >
+                                        <tspan x="50" y="66" font-size="54" font-weight="900" x-text="m.key"></tspan>
+                                    </text>
+                                </svg>
+
+                                <!-- Larger badge -->
+                                <div
+                                    class="absolute -right-1 -top-1 inline-flex min-w-[2rem] items-center justify-center rounded-full border border-border bg-card px-2 py-0.5 text-base font-semibold leading-none shadow-sm"
+                                    x-text="counts[m.key]"
+                                >
+                                    0
+                                </div>
+                            </div>
+
+                            <!-- Bigger down button -->
+                            <button
+                                @click="dec(m.key)"
+                                class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-card text-foreground shadow-sm transition-colors hover:bg-muted focus:outline-none disabled:opacity-50"
+                                :disabled="counts[m.key] === 0"
+                                :aria-label="`Decrement ${m.name}`"
+                                :title="`-1 ${m.name}`"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                    </template>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

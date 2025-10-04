@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+[x-cloak] {
+    display: none !important;
+}
+
+/* Map Tailwind color utilities to runtime CSS vars via tokens */
+@theme {
+    --color-background: var(--bg);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-border: var(--border);
+    --color-accent: var(--accent);
+    --color-ring: var(--ring);
+}
+
+/* Default tokens (overridden by data-theme below) */
+:root {
+    --bg: #eff1f5; /* Latte-like default */
+    --card: #ffffff;
+    --foreground: #4c4f69;
+    --muted: #e6e9ef;
+    --muted-foreground: #6c6f85;
+    --border: #ccd0da;
+    --accent: #1e66f5;
+    --ring: #1e66f5;
+    --theme-anim-duration: 320ms;
+    --theme-anim-ease: cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+html.theme-anim *,
+html.theme-anim ::before,
+html.theme-anim ::after {
+    transition-property: background-color, color, border-color, fill, stroke;
+    transition-duration: var(--theme-anim-duration);
+    transition-timing-function: var(--theme-anim-ease);
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --theme-anim-duration: 100ms;
+    }
+    html.theme-anim *,
+    html.theme-anim ::before,
+    html.theme-anim ::after {
+        transition: none !important;
+    }
+}
+
+/* Make native controls match current mode */
+html[data-mode="dark"] {
+    color-scheme: dark;
+}
+html[data-mode="light"] {
+    color-scheme: light;
+}
+
+/* Baseline */
+body {
+    background-color: var(--bg);
+    color: var(--foreground);
+}
+a {
+    color: var(--accent);
+}
+
+/* -------- Theme palettes (keys referenced by data-theme) -------- */
+
+/* Catppuccin */
+html[data-theme="catppuccin-latte"] {
+    --bg: #eff1f5;
+    --card: #ffffff;
+    --foreground: #4c4f69;
+    --muted: #e6e9ef;
+    --muted-foreground: #6c6f85;
+    --border: #ccd0da;
+    --accent: #1e66f5;
+    --ring: #1e66f5;
+}
+html[data-theme="catppuccin-mocha"] {
+    --bg: #1e1e2e;
+    --card: #181825;
+    --foreground: #cdd6f4;
+    --muted: #313244;
+    --muted-foreground: #bac2de;
+    --border: #45475a;
+    --accent: #89b4fa;
+    --ring: #89b4fa;
+}
+
+/* Nord */
+html[data-theme="nord-light"] {
+    --bg: #eceff4;
+    --card: #ffffff;
+    --foreground: #2e3440;
+    --muted: #e5e9f0;
+    --muted-foreground: #4c566a;
+    --border: #d8dee9;
+    --accent: #5e81ac;
+    --ring: #5e81ac;
+}
+html[data-theme="nord-dark"] {
+    --bg: #2e3440;
+    --card: #3b4252;
+    --foreground: #d8dee9;
+    --muted: #434c5e;
+    --muted-foreground: #e5e9f0;
+    --border: #4c566a;
+    --accent: #88c0d0;
+    --ring: #88c0d0;
+}
+
+/* Gruvbox (MonkeyType) */
+html[data-theme="gruvbox-light"] {
+    --bg: #fbf1c7;
+    --card: #ffffff;
+    --foreground: #3c3836;
+    --muted: #ebdbb2;
+    --muted-foreground: #504945;
+    --border: #e0cfa9;
+    --accent: #d79921;
+    --ring: #d79921;
+}
+html[data-theme="gruvbox-dark"] {
+    --bg: #282828;
+    --card: #1d2021;
+    --foreground: #ebdbb2;
+    --muted: #3c3836;
+    --muted-foreground: #d5c4a1;
+    --border: #3c3836;
+    --accent: #fabd2f;
+    --ring: #fabd2f;
+}
+
+html[data-theme="dracula"] {
+    --bg: #282a36;
+    --card: #1e1f29;
+    --foreground: #f8f8f2;
+    --muted: #44475a;
+    --muted-foreground: #bdc0c2;
+    --border: #44475a;
+    --accent: #bd93f9;
+    --ring: #bd93f9;
+}
+
+html[data-theme="rose-pine-dawn"] {
+    --bg: #faf4ed;
+    --card: #ffffff;
+    --foreground: #575279;
+    --muted: #f2e9e1;
+    --muted-foreground: #6e6a86;
+    --border: #dfdad9;
+    --accent: #b4637a;
+    --ring: #b4637a;
+}
+html[data-theme="rose-pine"] {
+    --bg: #191724;
+    --card: #1f1d2e;
+    --foreground: #e0def4;
+    --muted: #26233a;
+    --muted-foreground: #c5c3ce;
+    --border: #2a2837;
+    --accent: #c4a7e7;
+    --ring: #c4a7e7;
+}
+
+html[data-theme="strawberry-light"] {
+    --bg: #fff1f2; /* rose-50 */
+    --card: #ffffff;
+    --foreground: #111827; /* slate-900 */
+    --muted: #ffe4e6; /* rose-100 */
+    --muted-foreground: #374151; /* slate-700 */
+    --border: #fecdd3; /* rose-200 */
+    --accent: #f43f5e; /* rose-500 */
+    --ring: #f43f5e;
+}
+html[data-theme="strawberry-dark"] {
+    --bg: #100b1f; /* deep violet-black */
+    --card: #16112b; /* lifted surface */
+    --foreground: #eadeff; /* soft-lilac text */
+    --muted: #241b3f; /* muted panel */
+    --muted-foreground: #cdb9ff; /* lighter text */
+    --border: #2e2454; /* subtle border */
+    --accent: #b794f4; /* warm lilac */
+    --ring: #b794f4;
+}
