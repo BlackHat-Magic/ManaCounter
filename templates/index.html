@@ -58,7 +58,7 @@
         href="https://ko-fi.com/lukethenderson"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex h-11 w-11 items-center justify-center rounded-md border border-border bg-card text-foreground shadow-sm transition-colors hover:bg-muted focus:outline-none"
+        class="inline-flex h-11 w-11 items-center justify-center rounded-md bg-card text-foreground shadow-sm transition-colors hover:bg-muted focus:outline-none"
         aria-label="Support on Ko-Fi"
         title="Ko-Fi"
     >
@@ -76,7 +76,7 @@
         href="https://github.com/BlackHat-Magic/ManaCounter"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex h-11 w-11 items-center justify-center rounded-md border border-border bg-card text-foreground shadow-sm transition-colors hover:bg-muted focus:outline-none"
+        class="inline-flex h-11 w-11 items-center justify-center rounded-md bg-card text-foreground shadow-sm transition-colors hover:bg-muted focus:outline-none"
         aria-label="View GitHub repository"
         title="GitHub"
     >
@@ -99,7 +99,7 @@
             @click="toggle()"
             @mouseover="open()"
             @mouseleave="close()"
-            class="inline-flex h-11 w-11 items-center justify-center rounded-md border border-border bg-card text-accent shadow-sm transition-colors hover:bg-muted focus:outline-none"
+            class="inline-flex h-11 w-11 items-center justify-center rounded-md bg-card text-accent shadow-sm transition-colors hover:bg-muted focus:outline-none"
             aria-label="Toggle light/dark theme"
             title="Toggle theme"
         >
@@ -146,9 +146,9 @@
             x-transition:leave-end="opacity-0 scale-95"
             @mouseover="open()"
             @mouseleave="close()"
-            class="absolute right-0 mt-2 w-80 rounded-md border border-border bg-card p-2 text-foreground shadow-md z-100"
+            class="absolute right-0 mt-2 w-80 rounded-md bg-card p-2 text-foreground shadow-md z-100"
         >
-            <div class="flex items-center gap-1 p-1 border-b border-border">
+            <div class="flex items-center gap-1 p-1">
                 <button
                     @click="setTab('light')"
                     :class="activeTab === 'light' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:bg-muted'"
