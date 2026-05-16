@@ -1,0 +1,11 @@
+[phases.build]
+dependsOn = ["install"]
+cmds = [
+    "npx @tailwindcss/cli -i ./static/css/main.css -o ./static/dist/main.css --minify",
+]
+
+[phases.install]
+cmds = ["npm ci"]
+
+[start]
+cmd = "nginx -g 'daemon off;' -c /app/nginx.conf"
