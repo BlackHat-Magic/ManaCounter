@@ -11,4 +11,4 @@ cmds = [
 cmds = ["npm ci"]
 
 [start]
-cmd = "nginx -g 'daemon off;' -c /app/nginx.conf"
+cmd = "mkdir -p /var/log/nginx && nginx -g 'daemon off;' -c /app/nginx.conf"
