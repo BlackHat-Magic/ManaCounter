@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["nginx"]
+nixPkgs = ["nodejs", "npm", "nginx"]
 
 [phases.build]
 dependsOn = ["install"]
