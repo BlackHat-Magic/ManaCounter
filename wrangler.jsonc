@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "manacounter",
+  "compatibility_date": "2026-05-21",
+  "build": {
+    "command": "bunx @tailwindcss/cli -i static/css/main.css -o static/dist/main.css"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "static"
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+}
